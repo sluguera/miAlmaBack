@@ -14,13 +14,13 @@ import compraproductos.entity.Reporte;
 public interface PedidoDao extends CrudRepository<Pedido, Integer> {
 	
 	@Procedure("registrarPedido")
-	void registrarPedido(@Param("idProducto") int idProducto, @Param("idCliente") String idCliente,
-			@Param("fechaCompra") Date fechaCompra, @Param("detalle") String detalle);
+	void registrarPedido(@Param("idproducto") int idProducto, @Param("idcliente") String idCliente,
+			@Param("fechacompra") Date fechaCompra, @Param("detalle") String detalle);
 
 	
 	@Procedure("editarPedido")
-	void editarPedido(@Param("id") int idPedido, @Param("idProducto") int idProducto, @Param("idCliente") String idCliente,
-			@Param("fechaCompra") Date fechaCompra, @Param("detalle") String detalle);
+	void editarPedido(@Param("id") int idPedido, @Param("idproducto") int idProducto, @Param("idcliente") String idCliente,
+			@Param("fechacompra") Date fechaCompra, @Param("detalle") String detalle);
 
 	
 	@Procedure("eliminarPedido")
@@ -36,6 +36,6 @@ public interface PedidoDao extends CrudRepository<Pedido, Integer> {
 
 	
 	@Procedure("consultarPedidoPorFecha")
-	List<Reporte> consultarPedidoPorFecha(@Param("fechaInicial") String fechaInicial, @Param("fechaFinal") String fechaFinal);
+	List<Reporte> consultarPedidoPorFecha(@Param("fechainicial") String fechaInicial, @Param("fechafinal") String fechaFinal);
 
 }

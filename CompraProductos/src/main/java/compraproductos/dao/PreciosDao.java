@@ -11,5 +11,15 @@ import compraproductos.entity.Precios;
 public interface PreciosDao extends CrudRepository<Precios, Integer> {
 
 	@Procedure(name = "consultaProductoConPrecio")
-	Optional<Precios> consultaProductoConPrecio(@Param("idProducto") int idProducto);
+	Optional<Precios> consultaProductoConPrecio(@Param("idproducto") int idProducto);
+	
+	@Procedure(name = "registrarPrecio")
+	void registrarPrecio(@Param("valor") double valor);
+	
+	@Procedure(name = "eliminarPrecio")
+	void eliminarPrecio(@Param("id") int id);
+	
+	
+	@Procedure(name = "actualizarPrecio")
+	void actualizarPrecio(@Param("id") int id, @Param("precio") double precio);
 }

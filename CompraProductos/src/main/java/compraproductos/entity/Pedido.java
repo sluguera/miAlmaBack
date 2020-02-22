@@ -15,13 +15,13 @@ public class Pedido {
 	@Column(name="id")
 	private int idPedido;
 	
-	@Column(name="idCliente")
+	@Column(name="idcliente")
 	private String cedulaCliente;
 	
-	@Column(name="idProducto")
+	@Column(name="idproducto")
 	private int idProducto;
 	
-	@Column(name="fechaCompra")
+	@Column(name="fechacompra")
 	private Date fechaCompraPedido;
 	
 	@Column(name="detalle")

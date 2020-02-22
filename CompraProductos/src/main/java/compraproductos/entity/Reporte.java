@@ -5,21 +5,15 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Table;
 
-@Table (name = "reporte")
 public class Reporte {
-	@Column(name="p.nombre")
 	private String nombreProducto;
 	
-	@Column(name="p.imagen")
 	private String imagen;
 	
-	@Column(name="c.cedula")
 	private String cedula;
 	
-	@Column(name="c.nombre")
 	private String nombreCliente;
 	
-	@Column(name="pe.fechaCompra")
 	private Date fechaCompra;
 	
 	public String getNombreProducto() {

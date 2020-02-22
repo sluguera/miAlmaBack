@@ -27,45 +27,9 @@ public class PreciosController {
 	@Autowired
 	private PreciosServices preciosServices;
 	
-	@GetMapping("consultar/precios")
+	@GetMapping("consultar")
 	public ResponseEntity<List<Precios>> consultarPrecios(){
 		return new ResponseEntity<>(preciosServices.consultarPrecio(), HttpStatus.OK);
 	}
-	@GetMapping("consultar/precios{idProducto}")
-	public ResponseEntity<Precios> consultarPrecios(@PathVariable int idProducto){
-		Precios precios=preciosServices.consultarPrecio(idProducto);
-		if(precios==null) {
-			return new ResponseEntity<>(precios,HttpStatus.NO_CONTENT);
-		}    
-		return new ResponseEntity<>(precios,HttpStatus.OK);
-	}
 
-	@PostMapping(value = "crear", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> crearPrecios(@RequestBody  Precios precio) throws IOException {
-		if(preciosServices.consultarPrecio(precio.getIdProducto())==null) {
-				preciosServices.crearPrecio(precio);
-				return new ResponseEntity<>(HttpStatus.CREATED);
-		}else {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-	}
-	
-	@PutMapping(value = "actualizar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> actualizarPrecio(@RequestBody  Precios precio) throws IOException {
-		if(preciosServices.consultarPrecio(precio.getIdProducto())!=null) {
-				preciosServices.crearPrecio(precio);
-				return new ResponseEntity<>(HttpStatus.OK);
-		}
-		return new ResponseEntity<>(HttpStatus.CONFLICT);
-	}
-	
-	@DeleteMapping(value = "borrar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Precios> borrarPrecios(@RequestBody  Precios precio) {
-		Precios preci = preciosServices.crearPrecio(precio);
-		if (preci != null) {
-			preciosServices.borrarPrecios(preci);
-			return new ResponseEntity<>(preci, HttpStatus.OK);
-		}
-		return new ResponseEntity<>(preci, HttpStatus.NO_CONTENT);
-	}
 }

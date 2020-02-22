@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import compraproductos.entity.Precios;
 import compraproductos.entity.Producto;
 import compraproductos.services.PreciosServices;
 import compraproductos.services.ProductoServices;
@@ -27,7 +28,7 @@ public class ProductoController {
 	@Autowired
 	private ProductoServices productoServices;
 	@Autowired
-	private PreciosServices preSer;
+	private PreciosServices preciosServices;
 	
 	@GetMapping("consultar")
 	public ResponseEntity<List<Producto>> consultarProductos(){
@@ -45,9 +46,12 @@ public class ProductoController {
 	@PostMapping(value = "crear", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> crearProducto(@RequestBody  Producto producto) throws IOException {
 		 if(producto.getNombreProducto() != "") {
-			 
 			 producto.setImagen(producto.getImagen()==null?"":producto.getImagen());
-				productoServices.crearProducto(producto);
+			 
+			 Precios precios=new Precios();
+			 precios.setPrecio(producto.getPrecio());
+			 preciosServices.registrar(precios);
+			 productoServices.crearProducto(producto);
 			
 				return new ResponseEntity<>(HttpStatus.CREATED);
 		 }else {
@@ -60,6 +64,10 @@ public class ProductoController {
 	public ResponseEntity<HttpStatus> actualizarProducto(@RequestBody  Producto producto) throws IOException {
 		if(productoServices.consultarProducto(producto.getIdProducto())!=null) {
 				productoServices.actualizarProducto(producto);
+				 Precios precios=new Precios();
+				 precios.setPrecio(producto.getPrecio());
+				 precios.setIdProducto(producto.getIdProducto());
+				preciosServices.actualizar(precios);
 				return new ResponseEntity<>(HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -70,8 +78,11 @@ public class ProductoController {
 	
 		Producto produ = productoServices.consultarProducto(producto.getIdProducto());
 		if (produ != null) {
-			System.out.println(producto.getIdProducto()+"entro");
+			
 			productoServices.borrarProducto(produ);
+			 Precios precios=new Precios();
+			 precios.setIdProducto(producto.getIdProducto());
+			preciosServices.eliminar(precios);
 			return new ResponseEntity<>(produ, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(produ, HttpStatus.NO_CONTENT);

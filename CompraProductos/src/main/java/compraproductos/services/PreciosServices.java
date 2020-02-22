@@ -14,36 +14,22 @@ public class PreciosServices {
 	@Autowired
 	private PreciosDao preciosDao;
 
-	// Crear
-	public Precios crearPrecio(Precios precios) {
-		return preciosDao.save(precios);
-	}
 
 	// Consultar todos los precios
 	public List<Precios> consultarPrecio() {
 		return (List<Precios>) preciosDao.findAll();
 	}
 
-	// Consultar un precio especifico
-	public Precios consultarPrecio(int idProducto) {
-		Optional<Precios> producto = preciosDao.findById(idProducto);
-		if (producto.isPresent()) {
-			return producto.get();
-		}
-		return null;
+	
+	public void registrar(Precios precios) {
+		preciosDao.registrarPrecio(precios.getPrecio());
 	}
-
-	// Consultar un producto con su precio
-	public Precios consultarProductoConPrecio(int idProducto) {
-		Optional<Precios> producto = preciosDao.consultaProductoConPrecio(idProducto);
-		if (producto.isPresent()) {
-			return producto.get();
-		}
-		return null;
+	
+	public void eliminar(Precios precios) {
+		preciosDao.eliminarPrecio(precios.getIdProducto());
 	}
-
-	// Eliminar
-	public void borrarPrecios(Precios precios) {
-		preciosDao.delete(precios);
+	
+	public void actualizar(Precios precios) {
+		preciosDao.actualizarPrecio(precios.getIdProducto(),precios.getPrecio());
 	}
 }

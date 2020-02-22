@@ -2,14 +2,17 @@ package compraproductos.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "listaPrecio")
+@Table (name = "precio")
 public class Precios {
 	@Id
-	@Column(name ="idProducto")
+	 @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name ="idproducto")
 	private int idProducto;
 	
 	@Column(name ="valor")
